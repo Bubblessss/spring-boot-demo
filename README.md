@@ -9,11 +9,11 @@ ps:
 
 模块快速预览：
 
-√spring-boot-condition：测试配置类条件注解：@conditional、@ConditionalOnBean、@ConditionalOnMissingBean
+[√spring-boot-condition](https://github.com/Bubblessss/spring-boot-demo/tree/master/spring-boot-condition)：测试配置类条件注解：@conditional、@ConditionalOnBean、@ConditionalOnMissingBean
 
-√spring-boot-redis：整合redis,7大数据类型：string、list、set、zset、hash、geo、hyperloglog
+[√spring-boot-redis](https://github.com/Bubblessss/spring-boot-demo/tree/master/spring-boot-redis)：整合redis,7大数据类型：string、list、set、zset、hash、geo、hyperloglog
 
-spring-boot-java8stream：optional判空替代ifnull优化代码、stream集合增强处理
+[√spring-boot-java8stream](https://github.com/Bubblessss/spring-boot-demo/tree/master/spring-boot-java8stream)：optional判空替代ifnull优化代码、stream集合增强处理
  
 ×spring-boot-redisCluster：整合redis cluster
 
