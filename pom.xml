@@ -11,5 +11,6 @@
     <modules>
         <module>spring-boot-condition</module>
         <module>spring-boot-redis</module>
+        <module>spring-boot-java8stream</module>
     </modules>
 </project>
