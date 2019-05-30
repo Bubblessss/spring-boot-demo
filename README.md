@@ -25,8 +25,6 @@ spring-boot-java8stream：optional判空替代ifnull优化代码、stream集合�
 
 ×spring-boot-rabbitmq：整合rabbitmq，测试各个交换机和延时队列
 
-×spring-boot-rabbitmq：整合rabbitmq，测试各个交换机和延时队列
-
 ×spring-boot-elasticsearch：整合搜索引擎ES
 
 ×spring-boot-docker：第一个docker容器的springboot应用
