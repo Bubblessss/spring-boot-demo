@@ -13,5 +13,6 @@
         <module>spring-boot-redis</module>
         <module>spring-boot-java8stream</module>
         <module>spring-boot-banner</module>
+        <module>spring-boot-swagger</module>
     </modules>
 </project>
