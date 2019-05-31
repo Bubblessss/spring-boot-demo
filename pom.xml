@@ -12,5 +12,6 @@
         <module>spring-boot-condition</module>
         <module>spring-boot-redis</module>
         <module>spring-boot-java8stream</module>
+        <module>spring-boot-banner</module>
     </modules>
 </project>
