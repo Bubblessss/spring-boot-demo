@@ -21,7 +21,7 @@ ps:
 
 ×spring-boot-swagger：前后端分离开发接口在线文档神器
 
-×spring-boot-banner：自定义启动打印banner
+[√spring-boot-banner](https://github.com/Bubblessss/spring-boot-demo/tree/master/spring-boot-banner)：自定义启动打印banner
 
 ×spring-boot-commandLineRunner:目启动时去做某些事,比如初始化资源,自动打开浏览器定位到首页
 
