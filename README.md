@@ -33,7 +33,7 @@ ps:
 
 ×spring-boot-docker：第一个docker容器的springboot应用
 
-×spring-boot-jpa：整合新型orm框架jpa
+[√spring-boot-jpa](https://github.com/Bubblessss/spring-boot-demo/tree/master/spring-boot-jpa)：整合新型orm框架jpa
 
 [√spring-boot-mybatis](https://github.com/Bubblessss/spring-boot-demo/tree/master/spring-boot-mybatis)：整合主流orm框架mybatis
 
