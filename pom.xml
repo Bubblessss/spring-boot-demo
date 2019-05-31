@@ -15,5 +15,6 @@
         <module>spring-boot-banner</module>
         <module>spring-boot-swagger</module>
         <module>spring-boot-command</module>
+        <module>spring-boot-mybatis</module>
     </modules>
 </project>
