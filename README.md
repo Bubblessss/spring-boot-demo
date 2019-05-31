@@ -35,7 +35,7 @@ ps:
 
 ×spring-boot-jpa：整合新型orm框架jpa
 
-×spring-boot-mybatis：整合主流orm框架mybatis
+[√spring-boot-mybatis](https://github.com/Bubblessss/spring-boot-demo/tree/master/spring-boot-mybatis)：整合主流orm框架mybatis
 
 ×spring-boot-mongodb：整合主流Nosql框架mongodb
 
