@@ -14,5 +14,6 @@
         <module>spring-boot-java8stream</module>
         <module>spring-boot-banner</module>
         <module>spring-boot-swagger</module>
+        <module>spring-boot-command</module>
     </modules>
 </project>
