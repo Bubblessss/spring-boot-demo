@@ -23,7 +23,7 @@ ps:
 
 [√spring-boot-banner](https://github.com/Bubblessss/spring-boot-demo/tree/master/spring-boot-banner)：自定义启动打印banner
 
-×spring-boot-commandLineRunner:目启动时去做某些事,比如初始化资源,自动打开浏览器定位到首页
+[√spring-boot-command](https://github.com/Bubblessss/spring-boot-demo/tree/master/spring-boot-command):项目启动时去做某些事,比如初始化资源,自动打开浏览器定位到首页
 
 ×spring-boot-activemq：整合activemq，测试消息群通知和p2p通知
 
