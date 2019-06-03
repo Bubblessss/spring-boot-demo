@@ -16,7 +16,7 @@ public class SpringBootMailApplicationTests {
 
     @Test
     public void simpleMailTest() {
-        String to = "286910682@qq.com";
+        String to = "xxxxxxxxxxx@qq.com";
         String subject = "测试邮件1";
         String text = "Hello World";
         this.mailService.sendEmail(to,subject,text);
@@ -24,7 +24,7 @@ public class SpringBootMailApplicationTests {
 
     @Test
     public void fileMailTest() {
-        String to = "286910682@qq.com";
+        String to = "xxxxxxxxxxx@qq.com";
         String subject = "测试邮件2";
         String text = "Hello World 2019";
         String filePath = "D:\\工作\\资料\\资料\\详版报告样本.txt";
