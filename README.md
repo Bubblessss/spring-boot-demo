@@ -41,7 +41,7 @@ ps:
 
 [√spring-boot-mail](https://github.com/Bubblessss/spring-boot-demo/tree/master/spring-boot-mail)：使用springmail快速发邮件
 
-×spring-boot-thymeleaf：整合官网推荐主流模版引擎thymeleaf
+[√spring-boot-thymeleaf](https://github.com/Bubblessss/spring-boot-demo/tree/master/spring-boot-thymeleaf)：整合官网推荐主流模版引擎thymeleaf
 
 ×spring-boot-shiro：整合简单好用的权限框架shiro
 
