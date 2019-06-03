@@ -18,5 +18,6 @@
         <module>spring-boot-mybatis</module>
         <module>spring-boot-jpa</module>
         <module>spring-boot-aoplog</module>
+        <module>spring-boot-mail</module>
     </modules>
 </project>
