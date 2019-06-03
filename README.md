@@ -45,7 +45,7 @@ ps:
 
 ×spring-boot-shiro：整合简单好用的权限框架shiro
 
-×spring-boot-scheduler：整合spring定时任务scheduler
+[√spring-boot-scheduler](https://github.com/Bubblessss/spring-boot-demo/tree/master/spring-boot-scheduler)：整合spring定时任务scheduler
 
 ×spring-boot-quartz：整合传统定时任务quartz
 
