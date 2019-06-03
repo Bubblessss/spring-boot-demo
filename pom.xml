@@ -21,5 +21,6 @@
         <module>spring-boot-mail</module>
         <module>spring-boot-scheduler</module>
         <module>spring-boot-thymeleaf</module>
+        <module>spring-boot-easypoi</module>
     </modules>
 </project>
