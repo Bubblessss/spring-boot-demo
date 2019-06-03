@@ -17,7 +17,7 @@ ps:
  
 ×spring-boot-redisCluster：整合redis cluster
 
-×spring-boot-aopLog：利用spring aop自定义注解记录日志
+[√spring-boot-aopLog](https://github.com/Bubblessss/spring-boot-demo/tree/master/spring-boot-aopLog)：利用spring aop自定义注解记录日志
 
 [√spring-boot-swagger](https://github.com/Bubblessss/spring-boot-demo/tree/master/spring-boot-swagger)：前后端分离开发接口在线文档神器
 
