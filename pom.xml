@@ -20,6 +20,6 @@
         <module>spring-boot-aoplog</module>
         <module>spring-boot-mail</module>
         <module>spring-boot-scheduler</module>
-
+        <module>spring-boot-thymeleaf</module>
     </modules>
 </project>
