@@ -20,5 +20,6 @@
         <module>spring-boot-aoplog</module>
         <module>spring-boot-mail</module>
         <module>spring-boot-scheduler</module>
+
     </modules>
 </project>
