@@ -17,5 +17,6 @@
         <module>spring-boot-command</module>
         <module>spring-boot-mybatis</module>
         <module>spring-boot-jpa</module>
+        <module>spring-boot-aoplog</module>
     </modules>
 </project>
