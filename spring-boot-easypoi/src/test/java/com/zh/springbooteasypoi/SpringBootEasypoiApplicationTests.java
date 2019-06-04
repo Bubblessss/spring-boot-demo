@@ -14,13 +14,14 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class SpringBootEasypoiApplicationTests {
+
+    private static final String WIKI = "http://easypoi.mydoc.io";
 
     private static List<User> dataList = new ArrayList<>();
 
