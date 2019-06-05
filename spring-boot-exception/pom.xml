@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.zh</groupId>
-    <artifactId>exception</artifactId>
+    <artifactId>spring-boot-exception</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>exception</name>
+    <name>spring-boot-exception</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
