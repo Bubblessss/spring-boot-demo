@@ -22,5 +22,6 @@
         <module>spring-boot-scheduler</module>
         <module>spring-boot-thymeleaf</module>
         <module>spring-boot-easypoi</module>
+        <module>spring-boot-exception</module>
     </modules>
 </project>
