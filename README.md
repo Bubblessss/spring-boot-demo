@@ -25,6 +25,8 @@ ps:
 
 [√spring-boot-command](https://github.com/Bubblessss/spring-boot-demo/tree/master/spring-boot-command):项目启动时去做某些事,比如初始化资源,自动打开浏览器定位到首页
 
+[√spring-boot-exception](https://github.com/Bubblessss/spring-boot-demo/tree/master/spring-boot-exception):使用@RestControllerAdvice做全局rest异常统一处理
+
 ×spring-boot-activemq：整合activemq，测试消息群通知和p2p通知
 
 ×spring-boot-rabbitmq：整合rabbitmq，测试各个交换机和延时队列
