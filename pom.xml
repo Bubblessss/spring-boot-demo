@@ -24,5 +24,6 @@
         <module>spring-boot-easypoi</module>
         <module>spring-boot-exception</module>
         <module>spring-boot-redisson</module>
+        <module>spring-boot-multidatasource</module>
     </modules>
 </project>
