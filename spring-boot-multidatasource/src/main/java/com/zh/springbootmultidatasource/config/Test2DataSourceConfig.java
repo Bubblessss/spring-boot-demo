@@ -46,9 +46,4 @@ public class Test2DataSourceConfig {
         return new SqlSessionTemplate(test2SqlSessionFactory);
     }
 
-    @Bean
-    public DataSourceTransactionManager test2TransactionManager(@Qualifier("test2DataSource") DataSource test2DataSource) {
-        return new DataSourceTransactionManager(test2DataSource);
-    }
-
 }

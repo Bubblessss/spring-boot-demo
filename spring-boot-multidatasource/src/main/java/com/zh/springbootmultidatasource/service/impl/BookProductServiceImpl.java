@@ -5,6 +5,7 @@ import com.zh.springbootmultidatasource.service.OrderService;
 import com.zh.springbootmultidatasource.service.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author zhanghang
@@ -21,6 +22,7 @@ public class BookProductServiceImpl implements BookProductService {
 
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void bookProduct(Integer productId, Integer userId) {
         //订单表插入一条数据
         this.orderService.save(productId,userId);

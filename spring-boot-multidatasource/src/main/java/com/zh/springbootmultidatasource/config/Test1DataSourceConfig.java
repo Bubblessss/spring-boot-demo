@@ -49,10 +49,4 @@ public class Test1DataSourceConfig {
         return new SqlSessionTemplate(test1SqlSessionFactory);
     }
 
-    @Bean
-    @Primary
-    public DataSourceTransactionManager test1TransactionManager(@Qualifier("test1DataSource") DataSource test1DataSource) {
-        return new DataSourceTransactionManager(test1DataSource);
-    }
-
 }
