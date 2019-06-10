@@ -41,6 +41,8 @@ ps:
 
 [√spring-boot-mybatis](https://github.com/Bubblessss/spring-boot-demo/tree/master/spring-boot-mybatis)：整合主流orm框架mybatis
 
+[√spring-boot-multidatasource](https://github.com/Bubblessss/spring-boot-demo/tree/master/spring-boot-multidatasource)：整合多数据源
+
 ×spring-boot-mongodb：整合主流Nosql框架mongodb
 
 [√spring-boot-mail](https://github.com/Bubblessss/spring-boot-demo/tree/master/spring-boot-mail)：使用springmail快速发邮件
