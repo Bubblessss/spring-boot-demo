@@ -25,5 +25,6 @@
         <module>spring-boot-exception</module>
         <module>spring-boot-redisson</module>
         <module>spring-boot-multidatasource</module>
+        <module>spring-boot-atomikos-jta</module>
     </modules>
 </project>
