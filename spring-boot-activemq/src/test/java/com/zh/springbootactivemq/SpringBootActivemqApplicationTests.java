@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.jms.JMSException;
+import java.util.concurrent.TimeUnit;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -35,6 +36,14 @@ public class SpringBootActivemqApplicationTests {
     @Test
     public void sendUser2TopicTest() throws JMSException {
         this.productService.sendTopicMsg(new User(2,"李四",21));
+    }
+
+    @Test
+    public void sendString2DelayTopicTest() throws JMSException, InterruptedException {
+        this.productService.sendDelayTopicMsg("Hello World 2018");
+        this.productService.sendDelayTopicMsg("Hello World 2019",5 * 1000);
+        //睡上20s防止服务器关闭接收不到延时消息
+        TimeUnit.SECONDS.sleep(20);
     }
 
 }

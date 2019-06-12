@@ -17,4 +17,8 @@ public interface ProductService {
     void sendTopicMsg(String msg) throws JMSException;
 
     void sendTopicMsg(User user) throws JMSException;
+
+    void sendDelayTopicMsg(String msg) throws JMSException;
+
+    void sendDelayTopicMsg(String msg,long time) throws JMSException;
 }

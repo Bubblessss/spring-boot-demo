@@ -56,4 +56,9 @@ public class ActivemqConfig {
     public Topic topicUser(){
         return new ActiveMQTopic("topic_user_test");
     }
+
+    @Bean
+    public Topic delayTopicString(){
+        return new ActiveMQTopic("topic_delay_string_test");
+    }
 }

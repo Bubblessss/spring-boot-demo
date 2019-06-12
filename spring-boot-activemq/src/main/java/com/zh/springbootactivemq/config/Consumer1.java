@@ -5,8 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 
-import javax.jms.Message;
-import javax.jms.ObjectMessage;
+import java.time.LocalDateTime;
 
 /**
  * @author zhanghang
@@ -34,5 +33,10 @@ public class Consumer1 {
     @JmsListener(destination = "topic_user_test",containerFactory = "topicListenerFactory")
     public void receiveTopic(User user) {
         log.info("consumer1收到topic信息:{}",user.toString());
+    }
+
+    @JmsListener(destination = "topic_delay_string_test",containerFactory = "topicListenerFactory")
+    public void receiveDelayTopic(String text) {
+        log.info("consumer1收到topic延时信息:{},接收时间:{}",text, LocalDateTime.now());
     }
 }

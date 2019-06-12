@@ -3,13 +3,17 @@ package com.zh.springbootactivemq.service.impl;
 import com.zh.springbootactivemq.model.User;
 import com.zh.springbootactivemq.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.activemq.ScheduledMessage;
+import org.apache.activemq.command.ActiveMQTextMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsMessagingTemplate;
+import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.core.MessageCreator;
 import org.springframework.stereotype.Service;
 
-import javax.jms.JMSException;
-import javax.jms.Queue;
-import javax.jms.Topic;
+import javax.jms.*;
+import java.time.LocalDateTime;
+import java.util.Objects;
 
 
 /**
@@ -31,6 +35,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private Topic topicUser;
+
+    @Autowired
+    private Topic delayTopicString;
 
     @Autowired
     private JmsMessagingTemplate jmsMessagingTemplate;
@@ -58,5 +65,35 @@ public class ProductServiceImpl implements ProductService {
     public void sendTopicMsg(User user) throws JMSException {
         log.info("product发送信息:{}到{}",user.toString(),this.topicUser.getTopicName());
         this.jmsMessagingTemplate.convertAndSend(this.topicUser,user);
+    }
+
+    /**
+     * 使用延时队列需要在activemq.xml中的<broker></broker>标签里添加schedulerSupport="true"，如下：
+     * <broker xmlns="http://activemq.apache.org/schema/core" brokerName="localhost" dataDirectory="${activemq.data}" schedulerSupport="true"></broker>
+     * @return
+     */
+    @Override
+    public void sendDelayTopicMsg(String msg) throws JMSException {
+        log.info("product发送延时信息:{}到{},发送时间:{}",msg,this.delayTopicString.getTopicName(), LocalDateTime.now());
+        this.jmsMessagingTemplate.getJmsTemplate().send(this.delayTopicString, session -> {
+            TextMessage tx = session.createTextMessage(msg);
+            tx.setLongProperty(ScheduledMessage.AMQ_SCHEDULED_DELAY,10 * 1000);
+            return tx;
+        });
+    }
+
+    /**
+     * 使用延时队列需要在activemq.xml中的<broker></broker>标签里添加schedulerSupport="true"，如下：
+     * <broker xmlns="http://activemq.apache.org/schema/core" brokerName="localhost" dataDirectory="${activemq.data}" schedulerSupport="true"></broker>
+     * @return
+     */
+    @Override
+    public void sendDelayTopicMsg(String msg,long time) throws JMSException {
+        log.info("product发送延时信息:{}到{},发送时间:{}",msg,this.delayTopicString.getTopicName(), LocalDateTime.now());
+        this.jmsMessagingTemplate.getJmsTemplate().send(this.delayTopicString, session -> {
+            TextMessage tx = session.createTextMessage(msg);
+            tx.setLongProperty(ScheduledMessage.AMQ_SCHEDULED_DELAY,time);
+            return tx;
+        });
     }
 }
