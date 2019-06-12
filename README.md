@@ -29,7 +29,7 @@ ps:
 
 [√spring-boot-exception](https://github.com/Bubblessss/spring-boot-demo/tree/master/spring-boot-exception):使用@RestControllerAdvice做全局rest异常统一处理
 
-×spring-boot-activemq：整合activemq，测试消息群通知和p2p通知
+[√spring-boot-activemq](https://github.com/Bubblessss/spring-boot-demo/tree/master/spring-boot-activemq)：整合activemq，使用连接池，测试topic(消息群通知)和queue(p2p)通知，如果是springboot1.5+注意更换apache连接池依赖
 
 ×spring-boot-rabbitmq：整合rabbitmq，测试各个交换机和延时队列
 
