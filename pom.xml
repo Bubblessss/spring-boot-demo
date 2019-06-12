@@ -26,5 +26,6 @@
         <module>spring-boot-redisson</module>
         <module>spring-boot-multidatasource</module>
         <module>spring-boot-atomikos-jta</module>
+        <module>spring-boot-activemq</module>
     </modules>
 </project>
