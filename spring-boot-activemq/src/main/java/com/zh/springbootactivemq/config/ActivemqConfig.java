@@ -13,6 +13,8 @@ import javax.jms.Queue;
 import javax.jms.Topic;
 
 /**
+ * 特别注意：
+ * 如果是springboot1.5+，注意更换apache的连接池依赖
  * @author zhanghang
  * @date 2019/6/11
  */
