@@ -44,6 +44,9 @@ public class ProductServiceImpl implements ProductService {
     private Topic delayTopicString;
 
     @Autowired
+    private Queue queueStringACK;
+
+    @Autowired
     private JmsMessagingTemplate jmsMessagingTemplate;
 
 
@@ -63,6 +66,12 @@ public class ProductServiceImpl implements ProductService {
     public void send2WayQueueMsg(String msg) throws JMSException {
         log.info("product发送信息:{}到{}",msg,this.queueString2Way.getQueueName());
         this.jmsMessagingTemplate.convertAndSend(this.queueString2Way,msg);
+    }
+
+    @Override
+    public void sendACKQueueMsg(String msg) throws JMSException {
+        log.info("product发送信息:{}到{}",msg,this.queueStringACK.getQueueName());
+        this.jmsMessagingTemplate.convertAndSend(this.queueStringACK,msg);
     }
 
     @JmsListener(destination = "queue_string_return_test",containerFactory = "queueListenerFactory")

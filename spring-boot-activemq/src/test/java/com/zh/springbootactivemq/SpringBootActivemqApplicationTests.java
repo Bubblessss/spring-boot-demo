@@ -34,6 +34,13 @@ public class SpringBootActivemqApplicationTests {
     }
 
     @Test
+    public void sendString2ACKQueueTest() throws JMSException, InterruptedException {
+        this.productService.sendACKQueueMsg("Hello World 2019");
+        //睡上20s防止服务器关闭接收不到延时消息
+        TimeUnit.SECONDS.sleep(20);
+    }
+
+    @Test
     public void sendString2TopicTest() throws JMSException {
         this.productService.sendTopicMsg("Hello World 2019");
     }

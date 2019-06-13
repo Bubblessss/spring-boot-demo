@@ -1,5 +1,6 @@
 package com.zh.springbootactivemq.config;
 
+import org.apache.activemq.ActiveMQSession;
 import org.apache.activemq.command.ActiveMQQueue;
 import org.apache.activemq.command.ActiveMQTopic;
 import org.springframework.context.annotation.Bean;
@@ -31,6 +32,21 @@ public class ActivemqConfig {
     }
 
     @Bean
+    public JmsListenerContainerFactory<?> queueListenerACKFactory(ConnectionFactory connectionFactory) {
+        DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
+        factory.setPubSubDomain(false);
+        factory.setConnectionFactory(connectionFactory);
+        /**
+         * ack设置为activemq独有的单条确认模式：4,
+         * 至于为什么不设置为客户端手动确认：2,因为客户端手动确认会失效,
+         * 原因为spring框架会判断是否是2，如果是2会spring框架会帮你确认,
+         * 可查看AbstractMessageListenerContainer[commitIfNecessary()]
+         */
+        factory.setSessionAcknowledgeMode(ActiveMQSession.INDIVIDUAL_ACKNOWLEDGE);
+        return factory;
+    }
+
+    @Bean
     public JmsListenerContainerFactory<?> topicListenerFactory(ConnectionFactory connectionFactory) {
         DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
         factory.setPubSubDomain(true);
@@ -52,6 +68,11 @@ public class ActivemqConfig {
     @Bean
     public Queue queueString2Way(){
         return new ActiveMQQueue("queue_string_2way_test");
+    }
+
+    @Bean
+    public Queue queueStringACK(){
+        return new ActiveMQQueue("queue_string_ack_test");
     }
 
     @Bean

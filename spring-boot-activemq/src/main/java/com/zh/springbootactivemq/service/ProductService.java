@@ -16,6 +16,8 @@ public interface ProductService {
 
     void send2WayQueueMsg(String msg) throws JMSException;
 
+    void sendACKQueueMsg(String msg) throws JMSException;
+
     void sendTopicMsg(String msg) throws JMSException;
 
     void sendTopicMsg(User user) throws JMSException;
