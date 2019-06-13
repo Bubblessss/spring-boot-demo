@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.activemq.ScheduledMessage;
 import org.apache.activemq.command.ActiveMQTextMessage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jms.annotation.JmsListener;
 import org.springframework.jms.core.JmsMessagingTemplate;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
@@ -31,6 +32,9 @@ public class ProductServiceImpl implements ProductService {
     private Queue queueUser;
 
     @Autowired
+    private Queue queueString2Way;
+
+    @Autowired
     private Topic topicString;
 
     @Autowired
@@ -53,6 +57,17 @@ public class ProductServiceImpl implements ProductService {
     public void sendQueueMsg(User user) throws JMSException {
         log.info("product发送信息:{}到{}",user.toString(),this.queueUser.getQueueName());
         this.jmsMessagingTemplate.convertAndSend(this.queueUser,user);
+    }
+
+    @Override
+    public void send2WayQueueMsg(String msg) throws JMSException {
+        log.info("product发送信息:{}到{}",msg,this.queueString2Way.getQueueName());
+        this.jmsMessagingTemplate.convertAndSend(this.queueString2Way,msg);
+    }
+
+    @JmsListener(destination = "queue_string_return_test",containerFactory = "queueListenerFactory")
+    public void receiveQueue(String text) {
+        log.info("product收到queue_string_return_test信息:{}",text);
     }
 
     @Override
@@ -96,4 +111,5 @@ public class ProductServiceImpl implements ProductService {
             return tx;
         });
     }
+
 }

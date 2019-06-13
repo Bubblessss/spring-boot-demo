@@ -50,6 +50,11 @@ public class ActivemqConfig {
     }
 
     @Bean
+    public Queue queueString2Way(){
+        return new ActiveMQQueue("queue_string_2way_test");
+    }
+
+    @Bean
     public Topic topicString(){
         return new ActiveMQTopic("topic_string_test");
     }

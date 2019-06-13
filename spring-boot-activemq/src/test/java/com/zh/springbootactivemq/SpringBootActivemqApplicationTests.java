@@ -29,6 +29,11 @@ public class SpringBootActivemqApplicationTests {
     }
 
     @Test
+    public void send2WayString2QueueTest() throws JMSException {
+        this.productService.send2WayQueueMsg("Hello World 2019");
+    }
+
+    @Test
     public void sendString2TopicTest() throws JMSException {
         this.productService.sendTopicMsg("Hello World 2019");
     }
