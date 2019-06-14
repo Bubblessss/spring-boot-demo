@@ -45,7 +45,7 @@
 
 [√spring-boot-atomikos-jta](https://github.com/Bubblessss/spring-boot-demo/tree/master/spring-boot-atomikos-jta)：整合基于简单2PC协议的atomikos-jta分布式事务，该方式配置实现简单但是效率较低
 
-×spring-boot-mongodb：整合主流Nosql框架mongodb
+[√spring-boot-mongodb](https://github.com/Bubblessss/spring-boot-demo/tree/master/spring-boot-mongodb)：整合主流Nosql框架mongodb,记录系统访问/响应日志
 
 [√spring-boot-mail](https://github.com/Bubblessss/spring-boot-demo/tree/master/spring-boot-mail)：使用springmail快速发邮件
 
