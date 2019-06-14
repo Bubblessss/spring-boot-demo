@@ -27,5 +27,6 @@
         <module>spring-boot-multidatasource</module>
         <module>spring-boot-atomikos-jta</module>
         <module>spring-boot-activemq</module>
+        <module>spring-boot-mongodb</module>
     </modules>
 </project>
