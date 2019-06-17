@@ -28,5 +28,6 @@
         <module>spring-boot-atomikos-jta</module>
         <module>spring-boot-activemq</module>
         <module>spring-boot-mongodb</module>
+        <module>spring-boot-async</module>
     </modules>
 </project>
