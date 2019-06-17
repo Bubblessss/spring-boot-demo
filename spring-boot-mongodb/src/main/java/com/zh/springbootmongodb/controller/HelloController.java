@@ -3,7 +3,6 @@ package com.zh.springbootmongodb.controller;
 import cn.hutool.core.util.RandomUtil;
 import com.zh.springbootmongodb.entity.dto.Result;
 import com.zh.springbootmongodb.entity.model.User;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
