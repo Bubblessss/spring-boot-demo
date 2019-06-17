@@ -50,8 +50,7 @@ public class RestExceptionHandler {
     public Result constraintViolationExceptionHandler(ConstraintViolationException ex){
         log.error("ConstraintViolationException异常信息：[{}]", ex.getMessage(),ex);
         JSONObject jsonResult = new JSONObject();
-        ex.getConstraintViolations()
-                .forEach(e -> jsonResult.put(e.getRootBeanClass().getName() + "." + e.getPropertyPath().toString(),e.getMessage()));
+        ex.getConstraintViolations().forEach(e -> jsonResult.put(e.getPropertyPath().toString(),e.getMessageTemplate()));
         return Result.genFailResult(jsonResult);
     }
 
