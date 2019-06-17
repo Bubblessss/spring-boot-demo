@@ -4,7 +4,6 @@ import cn.hutool.core.util.IdUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.zh.springbootmongodb.base.enums.AppResultCode;
 import com.zh.springbootmongodb.base.utils.IpUtil;
-import com.zh.springbootmongodb.entity.dto.Result;
 import com.zh.springbootmongodb.service.AppVisitLogService;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;

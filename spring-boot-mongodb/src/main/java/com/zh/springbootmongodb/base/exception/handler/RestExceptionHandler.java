@@ -8,12 +8,14 @@ import com.zh.springbootmongodb.service.AppVisitLogService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindException;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.validation.ConstraintViolationException;
 import java.util.Date;
+import java.util.StringJoiner;
 
 /**
  * @author zhanghang
@@ -43,13 +45,13 @@ public class RestExceptionHandler {
     }
 
     @ExceptionHandler({MethodArgumentNotValidException.class,BindException.class})
-    public Result bindingResultExceptionHandler(Exception ex){
-        if(ex instanceof MethodArgumentNotValidException) {
-            log.error("MethodArgumentNotValidException异常信息：[{}]", ex.getMessage(),ex);
-        }else{
-            log.error("BindException异常信息：[{}]", ex.getMessage(),ex);
-        }
-        Result result = Result.genFailResult(ex.getMessage());
+    public Result bindingResultExceptionHandler(Exception ex,BindingResult bindingResult){
+        StringJoiner sj = new StringJoiner(";");
+        bindingResult.getAllErrors().forEach(e -> sj.add(e.getDefaultMessage()));
+        JSONObject jsonResult = new JSONObject();
+        jsonResult.put(bindingResult.getObjectName(),sj.toString());
+        log.error("bindingResultException异常信息：[{}]",jsonResult.toJSONString(),ex);
+        Result result = Result.genFailResult(jsonResult);
         this.saveAppVisitLog(result);
         return result;
     }
@@ -57,7 +59,9 @@ public class RestExceptionHandler {
     @ExceptionHandler(value = ConstraintViolationException.class)
     public Result constraintViolationExceptionHandler(ConstraintViolationException ex){
         log.error("ConstraintViolationException异常信息：[{}]", ex.getMessage(),ex);
-        Result result = Result.genFailResult(ex.getMessage());
+        JSONObject jsonResult = new JSONObject();
+        ex.getConstraintViolations().forEach(e -> jsonResult.put(e.getPropertyPath().toString(),e.getMessageTemplate()));
+        Result result = Result.genFailResult(jsonResult);
         this.saveAppVisitLog(result);
         return result;
     }
