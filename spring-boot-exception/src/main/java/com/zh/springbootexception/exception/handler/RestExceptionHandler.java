@@ -30,19 +30,19 @@ public class RestExceptionHandler {
     @ExceptionHandler({MethodArgumentNotValidException.class,BindException.class})
     public Result bindingResultExceptionHandler(Exception ex){
         BindingResult bindingResult;
-        JSONObject jsonResult = new JSONObject();
-        StringJoiner sj = new StringJoiner(";");
+        String msg;
         if(ex instanceof MethodArgumentNotValidException) {
+            msg = "BindException异常信息";
             bindingResult = ((MethodArgumentNotValidException) ex).getBindingResult();
-            bindingResult.getAllErrors().forEach(e -> sj.add(e.getDefaultMessage()));
-            jsonResult.put(bindingResult.getObjectName(),sj.toString());
-            log.error("MethodArgumentNotValidException异常信息：[{}]", jsonResult.toJSONString(),ex);
         }else{
             bindingResult = ((BindException) ex).getBindingResult();
-            bindingResult.getAllErrors().forEach(e -> sj.add(e.getDefaultMessage()));
-            jsonResult.put(bindingResult.getObjectName(),sj.toString());
-            log.error("BindException异常信息：[{}]", jsonResult.toJSONString(),ex);
+            msg = "BindException异常信息";
         }
+        StringJoiner sj = new StringJoiner(";");
+        bindingResult.getAllErrors().forEach(e -> sj.add(e.getDefaultMessage()));
+        JSONObject jsonResult = new JSONObject();
+        jsonResult.put(bindingResult.getObjectName(),sj.toString());
+        log.error("{}：[{}]",msg,jsonResult.toJSONString(),ex);
         return Result.genFailResult(jsonResult);
     }
 
