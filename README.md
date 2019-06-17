@@ -11,6 +11,8 @@
 
 [√spring-boot-condition](https://github.com/Bubblessss/spring-boot-demo/tree/master/spring-boot-condition)：测试配置类条件注解：@conditional、@ConditionalOnBean、@ConditionalOnMissingBean
 
+[√spring-boot-async](https://github.com/Bubblessss/spring-boot-demo/tree/master/spring-boot-async)：测试spring异步注解：@Async
+
 [√spring-boot-redis](https://github.com/Bubblessss/spring-boot-demo/tree/master/spring-boot-redis)：整合redis,7大数据类型：string、list、set、zset、hash、geo、hyperloglog
 
 [√spring-boot-redisson](https://github.com/Bubblessss/spring-boot-demo/tree/master/spring-boot-redisson)：整合redisson实现分布式锁
