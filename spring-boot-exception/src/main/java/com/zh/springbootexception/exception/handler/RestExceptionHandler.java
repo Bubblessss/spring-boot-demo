@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.validation.ConstraintViolationException;
+import java.util.StringJoiner;
 
 /**
  * @author zhanghang
@@ -28,17 +29,20 @@ public class RestExceptionHandler {
 
     @ExceptionHandler({MethodArgumentNotValidException.class,BindException.class})
     public Result bindingResultExceptionHandler(Exception ex){
-        BindingResult result;
-        if(ex instanceof MethodArgumentNotValidException) {
-            log.error("MethodArgumentNotValidException异常信息：[{}]", ex.getMessage(),ex);
-            result = ((MethodArgumentNotValidException) ex).getBindingResult();
-        }else{
-            log.error("BindException异常信息：[{}]", ex.getMessage(),ex);
-            result = ((BindException) ex).getBindingResult();
-        }
+        BindingResult bindingResult;
         JSONObject jsonResult = new JSONObject();
-        result.getAllErrors()
-                .forEach(e -> jsonResult.put(e.getObjectName(),e.getDefaultMessage()));
+        StringJoiner sj = new StringJoiner(";");
+        if(ex instanceof MethodArgumentNotValidException) {
+            bindingResult = ((MethodArgumentNotValidException) ex).getBindingResult();
+            bindingResult.getAllErrors().forEach(e -> sj.add(e.getDefaultMessage()));
+            jsonResult.put(bindingResult.getObjectName(),sj.toString());
+            log.error("MethodArgumentNotValidException异常信息：[{}]", jsonResult.toJSONString(),ex);
+        }else{
+            bindingResult = ((BindException) ex).getBindingResult();
+            bindingResult.getAllErrors().forEach(e -> sj.add(e.getDefaultMessage()));
+            jsonResult.put(bindingResult.getObjectName(),sj.toString());
+            log.error("BindException异常信息：[{}]", jsonResult.toJSONString(),ex);
+        }
         return Result.genFailResult(jsonResult);
     }
 
