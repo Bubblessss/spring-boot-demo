@@ -11,7 +11,7 @@
 
 [√spring-boot-condition](https://github.com/Bubblessss/spring-boot-demo/tree/master/spring-boot-condition)：测试配置类条件注解：@conditional、@ConditionalOnBean、@ConditionalOnMissingBean
 
-[√spring-boot-async](https://github.com/Bubblessss/spring-boot-demo/tree/master/spring-boot-async)：测试spring异步注解：@Async
+[√spring-boot-async](https://github.com/Bubblessss/spring-boot-demo/tree/master/spring-boot-async)：测试spring异步注解：@Async,覆盖默认线程池自定义线程池,无返回值纯异步、有返回值Future<T>、有返回值CompletableFuture<T>
 
 [√spring-boot-redis](https://github.com/Bubblessss/spring-boot-demo/tree/master/spring-boot-redis)：整合redis,7大数据类型：string、list、set、zset、hash、geo、hyperloglog
 
