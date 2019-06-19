@@ -29,5 +29,6 @@
         <module>spring-boot-activemq</module>
         <module>spring-boot-mongodb</module>
         <module>spring-boot-async</module>
+        <module>spring-boot-elasticsearch</module>
     </modules>
 </project>
