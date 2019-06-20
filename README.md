@@ -35,7 +35,7 @@
 
 ×spring-boot-rabbitmq：整合rabbitmq，测试各个交换机和延时队列
 
-[√spring-boot-elasticsearch](https://github.com/Bubblessss/spring-boot-demo/tree/master/spring-boot-elasticsearch)：整合搜索引擎ES
+[√spring-boot-elasticsearch](https://github.com/Bubblessss/spring-boot-demo/tree/master/spring-boot-elasticsearch)：整合搜索引擎ES,实现全文模糊分词检索,单/多字段分词模糊检索,聚合操作，ElasticSearchTemplate和ElasticSearchRepository的使用
 
 ×spring-boot-docker：第一个docker容器的springboot应用
 
