@@ -2,21 +2,35 @@ package com.zh.springbootelasticsearch.service.impl;
 
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.RandomUtil;
+import com.alibaba.fastjson.JSONObject;
 import com.zh.springbootelasticsearch.model.Product;
 import com.zh.springbootelasticsearch.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
+import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.aggregations.AggregationBuilders;
+import org.elasticsearch.search.aggregations.Aggregations;
+import org.elasticsearch.search.aggregations.bucket.terms.StringTerms;
+import org.elasticsearch.search.aggregations.bucket.terms.Terms;
+import org.elasticsearch.search.aggregations.bucket.terms.TermsAggregationBuilder;
+import org.elasticsearch.search.aggregations.metrics.sum.InternalSum;
+import org.elasticsearch.search.aggregations.metrics.sum.SumAggregationBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
+import org.springframework.data.elasticsearch.core.ResultsExtractor;
+import org.springframework.data.elasticsearch.core.aggregation.AggregatedPage;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
+import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.math.BigDecimal;
 import java.util.*;
 
-import static org.elasticsearch.index.query.QueryBuilders.matchQuery;
-import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
+import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * 利用ElasticsearchTemplate操作ES
@@ -94,8 +108,9 @@ public class ProductServiceImpl implements ProductService {
             name = category2Product.get(product.getCategory()).get(RandomUtil.randomInt(10));
         }
         product.setName(name);
+        //价格均保留小数点后2位小数，但是由于es存储为double类型，对价格聚合时候会精度失真，因此此处价格乘以100，后续手动除以100处理[后续会对销售价聚合，因此销售价*100]
         product.setCostPrice(RandomUtil.randomBigDecimal(new BigDecimal("100"),new BigDecimal("10000")).setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue());
-        product.setSallPrice(new BigDecimal(product.getCostPrice()).multiply(new BigDecimal("2")).setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue());
+        product.setSalePrice(new BigDecimal(String.valueOf(product.getCostPrice())).multiply(new BigDecimal("2")).multiply(new BigDecimal("100")).doubleValue());
         product.setStockCount(RandomUtil.randomInt(10,100));
         product.setCreateTime(new Date(RandomUtil.randomLong(1400000000000L,1560000000000L)));
         return product;
@@ -111,6 +126,13 @@ public class ProductServiceImpl implements ProductService {
         return list;
     }
 
+    /**
+     * 单字段模糊查询
+     * 会被分词
+     * @param filed
+     * @param value
+     * @return
+     */
     @Override
     public List<Product> findByFieldMatch(String filed, String value) {
         return this.esTemplate.queryForList(new NativeSearchQueryBuilder().withQuery(matchQuery(filed,value)).build(),Product.class);
@@ -119,6 +141,27 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Page<Product> findByFieldMatch(String filed, String value, Pageable pageable) {
         return this.esTemplate.queryForPage(new NativeSearchQueryBuilder().withQuery(matchQuery(filed,value)).withPageable(pageable).build(),Product.class);
+    }
+
+    /**
+     * 多字段模糊查询
+     * 会被分词
+     * @param fileds
+     * @param value
+     * @return
+     */
+    @Override
+    public List<Product> findByMultiFieldMatch(List<String> fileds, String value) {
+        BoolQueryBuilder bqb = boolQuery();
+        fileds.forEach(e -> bqb.should(QueryBuilders.matchQuery(e,value)));
+        return this.esTemplate.queryForList(new NativeSearchQueryBuilder().withQuery(bqb).build(),Product.class);
+    }
+
+    @Override
+    public Page<Product> findByMultiFieldMatch(List<String> fileds, String value, Pageable pageable) {
+        BoolQueryBuilder bqb = boolQuery();
+        fileds.forEach(e -> bqb.should(QueryBuilders.matchQuery(e,value)));
+        return this.esTemplate.queryForPage(new NativeSearchQueryBuilder().withQuery(bqb).withPageable(pageable).build(),Product.class);
     }
 
     /**
@@ -135,6 +178,38 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Page<Product> findByValue(String value, Pageable pageable) {
         return this.esTemplate.queryForPage(new NativeSearchQueryBuilder().withQuery(queryStringQuery(value)).withPageable(pageable).build(),Product.class);
+    }
+
+    /**
+     * 统计聚合
+     * 汇总所有分类商品的总金额
+     */
+    @Override
+    public List<JSONObject> findAllCategorySumPrice() {
+        TermsAggregationBuilder tab = AggregationBuilders.terms("category").field("category");
+        SumAggregationBuilder sab = AggregationBuilders.sum("salePriceSum").field("salePrice");
+        tab.subAggregation(sab);
+        Aggregations agg = this.esTemplate.query(
+                new NativeSearchQueryBuilder().addAggregation(tab).build(),
+                searchResponse -> searchResponse.getAggregations()
+        );
+        StringTerms terms = agg.get("category");
+        List<StringTerms.Bucket> buckets = terms.getBuckets();
+        if (!CollectionUtils.isEmpty(buckets)){
+            List<JSONObject> list = new ArrayList<>(16);
+            JSONObject json;
+            for (StringTerms.Bucket bk : buckets){
+                json = new JSONObject();
+                json.put("key",bk.getKeyAsString());
+                json.put("count",bk.getDocCount());
+                double costPriceSum = ((InternalSum) bk.getAggregations().get("salePriceSum")).getValue();
+                json.put("salePriceSum",new BigDecimal(String.valueOf(costPriceSum)).divide(new BigDecimal("100")));
+                list.add(json);
+            }
+            return list;
+        }else {
+            return null;
+        }
     }
 
 }

@@ -23,20 +23,20 @@ public class Product {
     @Id
     private String id;
 
-    @Field(type = FieldType.Text, analyzer = "ik_max_word",searchAnalyzer="ik_max_word")
+    @Field(type = FieldType.Text, analyzer = "ik_max_word",searchAnalyzer="ik_max_word",fielddata = true)
     private String category;
 
-    @Field(type = FieldType.Text, analyzer = "ik_max_word",searchAnalyzer="ik_max_word")
+    @Field(type = FieldType.Text, analyzer = "ik_max_word",searchAnalyzer="ik_max_word",fielddata = true)
     private String brand;
 
-    @Field(type = FieldType.Text, analyzer = "ik_max_word",searchAnalyzer="ik_max_word")
+    @Field(type = FieldType.Text, analyzer = "ik_max_word",searchAnalyzer="ik_max_word",fielddata = true)
     private String name;
 
     @Field(type = FieldType.Double)
     private Double costPrice;
 
     @Field(type = FieldType.Double)
-    private Double sallPrice;
+    private Double salePrice;
 
     @Field(type = FieldType.Integer)
     private Integer stockCount;
