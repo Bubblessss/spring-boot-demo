@@ -16,8 +16,12 @@ public interface ProductService {
 
     List<Product> listProduct();
 
+    List<Product> findByFieldMatch(String filed, String value);
+
+    Page<Product> findByFieldMatch(String filed, String value, Pageable pageable);
+
     List<Product> findByValue(String value);
 
-    List<Product> findByValue(String value, Pageable pageable);
+    Page<Product> findByValue(String value, Pageable pageable);
 
 }

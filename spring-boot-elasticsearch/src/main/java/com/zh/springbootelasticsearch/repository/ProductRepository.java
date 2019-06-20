@@ -18,4 +18,10 @@ public interface ProductRepository extends ElasticsearchRepository<Product,Strin
     Page<Product> findByCategoryOrderByCreateTimeDesc(String category, PageRequest page);
 
     List<Product> findByCreateTimeBetween(String from, String to);
+
+    List<Product> findByNameLike(String name);
+
+    List<Product> findByNameLikeOrBrandLike(String name,String brand);
+
+    void deleteByIdIn(List<String> ids);
 }

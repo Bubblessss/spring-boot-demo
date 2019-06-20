@@ -1,28 +1,22 @@
 package com.zh.springbootelasticsearch.service.impl;
 
-import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.RandomUtil;
-import com.alibaba.fastjson.JSONObject;
 import com.zh.springbootelasticsearch.model.Product;
 import com.zh.springbootelasticsearch.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
-import org.elasticsearch.action.update.UpdateAction;
-import org.elasticsearch.action.update.UpdateRequestBuilder;
-import org.elasticsearch.common.xcontent.XContentType;
-import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
-import static org.elasticsearch.index.query.QueryBuilders.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
-import org.springframework.data.elasticsearch.core.query.*;
+import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.*;
+
+import static org.elasticsearch.index.query.QueryBuilders.matchQuery;
+import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 
 /**
  * 利用ElasticsearchTemplate操作ES
@@ -117,6 +111,16 @@ public class ProductServiceImpl implements ProductService {
         return list;
     }
 
+    @Override
+    public List<Product> findByFieldMatch(String filed, String value) {
+        return this.esTemplate.queryForList(new NativeSearchQueryBuilder().withQuery(matchQuery(filed,value)).build(),Product.class);
+    }
+
+    @Override
+    public Page<Product> findByFieldMatch(String filed, String value, Pageable pageable) {
+        return this.esTemplate.queryForPage(new NativeSearchQueryBuilder().withQuery(matchQuery(filed,value)).withPageable(pageable).build(),Product.class);
+    }
+
     /**
      * 全文模糊查询
      * 会被分词
@@ -125,12 +129,12 @@ public class ProductServiceImpl implements ProductService {
      */
     @Override
     public List<Product> findByValue(String value) {
-        return  this.esTemplate.queryForList(new NativeSearchQueryBuilder().withQuery(queryStringQuery(value)).build(),Product.class);
+        return this.esTemplate.queryForList(new NativeSearchQueryBuilder().withQuery(queryStringQuery(value)).build(),Product.class);
     }
 
     @Override
-    public List<Product> findByValue(String value, Pageable pageable) {
-        return  this.esTemplate.queryForList(new NativeSearchQueryBuilder().withQuery(queryStringQuery(value)).withPageable(pageable).build(),Product.class);
+    public Page<Product> findByValue(String value, Pageable pageable) {
+        return this.esTemplate.queryForPage(new NativeSearchQueryBuilder().withQuery(queryStringQuery(value)).withPageable(pageable).build(),Product.class);
     }
 
 }
