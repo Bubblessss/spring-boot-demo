@@ -1,6 +1,9 @@
 package com.zh.springbootmongodb.entity.model;
 
 import lombok.Data;
+import lombok.ToString;
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.Date;
@@ -10,10 +13,11 @@ import java.util.Date;
  * @date 2019/6/14
  */
 @Data
+@ToString
 public class AppVisitLog {
 
-    @Field("_id")
-    private String id;
+    @Id
+    private ObjectId id;
 
     private String uuid;
 
