@@ -30,5 +30,6 @@
         <module>spring-boot-mongodb</module>
         <module>spring-boot-async</module>
         <module>spring-boot-elasticsearch</module>
+        <module>spring-boot-logback</module>
     </modules>
 </project>
