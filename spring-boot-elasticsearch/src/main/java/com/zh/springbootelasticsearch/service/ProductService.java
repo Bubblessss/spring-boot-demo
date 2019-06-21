@@ -29,5 +29,7 @@ public interface ProductService {
 
     Page<Product> findByValue(String value, Pageable pageable);
 
+    Page<Product> findByValue(String value,List<String> hightLightField, Pageable pageable);
+
     List<JSONObject> findAllCategorySumPrice();
 }

@@ -1,5 +1,7 @@
 package com.zh.springbootelasticsearch.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.RandomUtil;
 import com.alibaba.fastjson.JSONObject;
@@ -9,21 +11,23 @@ import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.aggregations.Aggregations;
 import org.elasticsearch.search.aggregations.bucket.terms.StringTerms;
-import org.elasticsearch.search.aggregations.bucket.terms.Terms;
 import org.elasticsearch.search.aggregations.bucket.terms.TermsAggregationBuilder;
 import org.elasticsearch.search.aggregations.metrics.sum.InternalSum;
 import org.elasticsearch.search.aggregations.metrics.sum.SumAggregationBuilder;
+import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
+import org.elasticsearch.search.fetch.subphase.highlight.HighlightField;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
-import org.springframework.data.elasticsearch.core.ResultsExtractor;
+import org.springframework.data.elasticsearch.core.SearchResultMapper;
 import org.springframework.data.elasticsearch.core.aggregation.AggregatedPage;
+import org.springframework.data.elasticsearch.core.aggregation.impl.AggregatedPageImpl;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
-import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -180,12 +184,73 @@ public class ProductServiceImpl implements ProductService {
         return this.esTemplate.queryForPage(new NativeSearchQueryBuilder().withQuery(queryStringQuery(value)).withPageable(pageable).build(),Product.class);
     }
 
+    @Override
+    public Page<Product> findByValue(String value,List<String> hightLightField, Pageable pageable) {
+        HighlightBuilder.Field[] hfields = new HighlightBuilder.Field[0];
+        if (!CollectionUtils.isEmpty(hightLightField)){
+            hfields = new HighlightBuilder.Field[hightLightField.size()];
+            for (int i = 0; i < hightLightField.size(); i++) {
+                hfields[i] = new HighlightBuilder.Field(hightLightField.get(i)).preTags("<em style='color:red'>").postTags("</em>").fragmentSize(250);
+            }
+        }
+        return this.esTemplate.queryForPage(
+                new NativeSearchQueryBuilder()
+                        .withQuery(queryStringQuery(value))
+                        .withHighlightFields(hfields)
+                        .withPageable(pageable)
+                        .build(),
+                Product.class,
+                new SearchResultMapper(){
+                    @Override
+                    public <T> AggregatedPage<T> mapResults(SearchResponse searchResponse, Class<T> aClass, Pageable pageable) {
+                        SearchHits hits = searchResponse.getHits();
+                        return  Optional.ofNullable(searchResponse.getHits())
+                                    .map(e -> {
+                                        int total = (int) hits.totalHits;
+                                        List<Product> list = new ArrayList<>(total);
+                                        Arrays.stream(hits.getHits()).forEach(e1 -> {
+                                            Map<String, Object> hitMap = e1.getSourceAsMap();
+                                            Map<String, HighlightField> highlightFieldMap = e1.getHighlightFields();
+                                            if (MapUtil.isNotEmpty(highlightFieldMap)) {
+                                                highlightFieldMap.entrySet().forEach(e2 -> hitMap.put(e2.getKey(), e2.getValue().getFragments()[0].toString()));
+                                            }
+                                            Product product = BeanUtil.mapToBean(hitMap,Product.class,false);
+                                            list.add(product);
+                                        });
+                                        return new AggregatedPageImpl(list,pageable,total);
+                                    })
+                                    .orElse(null);
+//                        if (hits != null){
+//                            int total = (int) hits.totalHits;
+//                            List<Product> list = new ArrayList<>(total);
+//                            Product product;
+//                            for (SearchHit hit : hits){
+//                                Map<String, Object> hitMap = hit.getSourceAsMap();
+//                                Map<String, HighlightField> highlightFieldMap = hit.getHighlightFields();
+//                                if (MapUtil.isNotEmpty(highlightFieldMap)) {
+//                                    for (Map.Entry field : highlightFieldMap.entrySet()) {
+//                                        hitMap.put(field.getKey().toString(), ((HighlightField) field.getValue()).getFragments()[0].toString());
+//                                    }
+//                                }
+//                                product = BeanUtil.mapToBean(hitMap,Product.class,false);
+//                                list.add(product);
+//                            }
+//                            return new AggregatedPageImpl(list,pageable,total);
+//                        }else {
+//                            return null;
+//                        }
+                    }
+                }
+               );
+    }
+
     /**
      * 统计聚合
      * 汇总所有分类商品的总金额
      */
     @Override
     public List<JSONObject> findAllCategorySumPrice() {
+        //聚合默认是10条,若想聚合全部：size(0)
         TermsAggregationBuilder tab = AggregationBuilders.terms("category").field("category");
         SumAggregationBuilder sab = AggregationBuilders.sum("salePriceSum").field("salePrice");
         tab.subAggregation(sab);

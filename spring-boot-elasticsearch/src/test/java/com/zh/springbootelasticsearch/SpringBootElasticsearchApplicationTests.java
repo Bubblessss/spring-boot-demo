@@ -155,6 +155,17 @@ public class SpringBootElasticsearchApplicationTests {
     }
 
     /**
+     * 全字段条件模糊查询
+     * 会被分词
+     * 指定字段高亮
+     */
+    @Test
+    public void searchByAllFiledValueWithHightLightTest() {
+        Page<Product> list = this.productService.findByValue("苹果",Arrays.asList("name"),PageRequest.of(0,5));
+        list.getContent().forEach(System.out :: println);
+    }
+
+    /**
      * 单字段条件模糊查询
      * 会被分词
      */
