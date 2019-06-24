@@ -31,5 +31,6 @@
         <module>spring-boot-async</module>
         <module>spring-boot-elasticsearch</module>
         <module>spring-boot-logback</module>
+        <module>spring-boot-websocket</module>
     </modules>
 </project>
