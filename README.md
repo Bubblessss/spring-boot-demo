@@ -25,6 +25,8 @@
 
 [√spring-boot-aoplog](https://github.com/Bubblessss/spring-boot-demo/tree/master/spring-boot-aoplog)：利用spring aop自定义注解记录日志
 
+[√spring-boot-jwt](https://github.com/Bubblessss/spring-boot-demo/tree/master/spring-boot-jwt)：整合jwt做请求认证,自定义拦截器统一校验jwt合法性和自定义参数解析器将jwt里的用户映射到参数里
+
 [√spring-boot-swagger](https://github.com/Bubblessss/spring-boot-demo/tree/master/spring-boot-swagger)：前后端分离开发接口在线文档神器
 
 [√spring-boot-banner](https://github.com/Bubblessss/spring-boot-demo/tree/master/spring-boot-banner)：自定义启动打印banner
