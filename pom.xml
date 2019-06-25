@@ -32,5 +32,6 @@
         <module>spring-boot-elasticsearch</module>
         <module>spring-boot-logback</module>
         <module>spring-boot-websocket</module>
+        <module>spring-boot-jwt</module>
     </modules>
 </project>
