@@ -36,14 +36,32 @@ public class WebSocket {
         this.userName = userName;
         this.session = session;
         webSockets.add(this);
+        this.sendLoginMsg(userName);
         log.info("【websocket消息】有新的连接, 总数:{}", webSockets.size());
     }
 
 
     @OnClose
     public void onClose() {
+        this.sendLogoutMsg(this.getUserName());
         webSockets.remove(this);
         log.info("【websocket消息】连接断开, 总数:{}", webSockets.size());
+    }
+
+    public void sendLoginMsg(String userName){
+        String msg = userName + "上线啦~~~\n";
+        JSONObject json = new JSONObject();
+        json.put("type","-1");
+        json.put("msg",msg);
+        this.sendMsg(json.toJSONString());
+    }
+
+    public void sendLogoutMsg(String userName){
+        String msg = userName + "下线啦!!!\n";
+        JSONObject json = new JSONObject();
+        json.put("type","-2");
+        json.put("msg",msg);
+        this.sendMsg(json.toJSONString());
     }
 
     @OnMessage
@@ -88,6 +106,22 @@ public class WebSocket {
                 json.put("type","0");
                 json.put("msg",msg);
                 webSocket.session.getBasicRemote().sendText(json.toJSONString());
+            } catch (Exception e) {
+                log.error("=================websocket全体广播消息出错===================");
+                log.error(e.getMessage(),e);
+            }
+        }
+    }
+
+    /**
+     * 全体广播消息
+     * @param jsonMsg 消息
+     */
+    public void sendMsg(String jsonMsg){
+        for (WebSocket webSocket: webSockets) {
+            log.info("【websocket消息】全体广播消息,message={}",jsonMsg);
+            try {
+                webSocket.session.getBasicRemote().sendText(jsonMsg);
             } catch (Exception e) {
                 log.error("=================websocket全体广播消息出错===================");
                 log.error(e.getMessage(),e);

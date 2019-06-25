@@ -5,6 +5,7 @@ new Vue({
         picked: 'multi',
         selected: '',
         options: '',
+        loginOutBox: '',
         multiMsgOutput: '',
         multiMsgInput: '',
         singleMsgOutput: '',
@@ -96,11 +97,12 @@ new Vue({
         changeText: function (data) {
             if (data.type == 0){
                 this.multiMsgOutput += data.msg;
-            } else{
+            } else if(data.type == 1){
                 alert("收到私信啦~");
                 this.selected = data.fromUserName;
                 this.singleMsgOutput += data.fromUserName +　":\n" + data.msg +　"\n";
-
+            } else{
+                this.loginOutBox += data.msg;
             }
         }
     },
