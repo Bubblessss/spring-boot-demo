@@ -13,6 +13,7 @@ import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * websocket实现
@@ -37,6 +38,7 @@ public class WebSocket {
         this.session = session;
         webSockets.add(this);
         this.sendLoginMsg(userName);
+        this.updateOnline(this.listOnline());
         log.info("【websocket消息】有新的连接, 总数:{}", webSockets.size());
     }
 
@@ -44,8 +46,30 @@ public class WebSocket {
     @OnClose
     public void onClose() {
         this.sendLogoutMsg(this.getUserName());
+        this.updateOnline(this.listOnline());
         webSockets.remove(this);
         log.info("【websocket消息】连接断开, 总数:{}", webSockets.size());
+    }
+
+    public List<JSONObject> listOnline(){
+        List<JSONObject> list =  WebSocket.webSockets.stream().map(e -> {
+            JSONObject json = new JSONObject();
+            json.put("text",e.getUserName());
+            json.put("value",e.getUserName());
+            return json;
+        }).collect(Collectors.toList());
+        JSONObject json = new JSONObject();
+        json.put("text","请选择");
+        json.put("value","");
+        list.add(0,json);
+        return list;
+    }
+
+    public void updateOnline(List<JSONObject> list){
+        JSONObject json = new JSONObject();
+        json.put("type","2");
+        json.put("msg",list);
+        this.sendMsg(json.toJSONString());
     }
 
     public void sendLoginMsg(String userName){
@@ -128,4 +152,5 @@ public class WebSocket {
             }
         }
     }
+
 }

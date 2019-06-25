@@ -41,17 +41,7 @@ public class HomeController {
     @GetMapping("/listAllUser")
     @ResponseBody
     public List<JSONObject> listAllUser(){
-        List<JSONObject> list =  WebSocket.webSockets.stream().map(e -> {
-                                        JSONObject json = new JSONObject();
-                                        json.put("text",e.getUserName());
-                                        json.put("value",e.getUserName());
-                                        return json;
-                                    }).collect(Collectors.toList());
-        JSONObject json = new JSONObject();
-        json.put("text","请选择");
-        json.put("value","");
-        list.add(0,json);
-        return list;
+        return this.webSocket.listOnline();
     }
 
     @PostMapping("/sendSingleMsg")

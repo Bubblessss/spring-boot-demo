@@ -98,9 +98,13 @@ new Vue({
             if (data.type == 0){
                 this.multiMsgOutput += data.msg;
             } else if(data.type == 1){
-                alert("收到私信啦~");
+                if (this.picked == "multi"){
+                    alert("收到私信啦~");
+                }
                 this.selected = data.fromUserName;
                 this.singleMsgOutput += data.fromUserName +　":\n" + data.msg +　"\n";
+            } else if (data.type == 2) {
+                this.options = data.msg;
             } else{
                 this.loginOutBox += data.msg;
             }
