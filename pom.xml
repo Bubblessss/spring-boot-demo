@@ -33,5 +33,6 @@
         <module>spring-boot-logback</module>
         <module>spring-boot-websocket</module>
         <module>spring-boot-jwt</module>
+        <module>spring-boot-shiro</module>
     </modules>
 </project>
