@@ -59,7 +59,7 @@
 
 [√spring-boot-logback](https://github.com/Bubblessss/spring-boot-demo/tree/master/spring-boot-logback)：使用springboot自带日志框架logback记录日志
 
-×spring-boot-shiro：整合简单好用的权限框架shiro
+[√spring-boot-shiro](https://github.com/Bubblessss/spring-boot-demo/tree/master/spring-boot-shiro)：整合简单好用的权限框架shiro实现认证和授权
 
 [√spring-boot-scheduler](https://github.com/Bubblessss/spring-boot-demo/tree/master/spring-boot-scheduler)：整合spring定时任务scheduler
 
