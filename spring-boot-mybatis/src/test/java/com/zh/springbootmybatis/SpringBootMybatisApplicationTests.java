@@ -32,7 +32,7 @@ public class SpringBootMybatisApplicationTests {
 
     @Test
     public void retrieveTest() {
-        User user = this.userService.findById(1);
+        User user = this.userService.findById(3);
         log.info("=============查询单个用户:{}================",user.toString());
         List<User> list = this.userService.listByAge(26);
         log.info("=============查询多个用户:{}================",list.toString());

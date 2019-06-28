@@ -23,7 +23,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findById(Integer id) {
-        return this.userMapper.selectByPrimaryKey(id);
+        return this.userMapper.selectByPrimaryKey(id)
+                .orElseThrow(() -> new RuntimeException("user未查得"));
     }
 
     @Override

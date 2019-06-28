@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserMapper {
     int deleteByPrimaryKey(Integer id);
@@ -13,7 +14,7 @@ public interface UserMapper {
 
     int insertSelective(User record);
 
-    User selectByPrimaryKey(Integer id);
+    Optional<User> selectByPrimaryKey(Integer id);
 
     int updateByPrimaryKeySelective(User record);
 
