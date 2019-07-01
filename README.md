@@ -67,6 +67,6 @@
 
 [√spring-boot-easypoi](https://github.com/Bubblessss/spring-boot-demo/tree/master/spring-boot-easypoi)：整合新型超简单excel处理框架easypoi
 
-×spring-boot-guava-bloomfilter：测试海量数据下过滤,排序
+[√spring-boot-bloomfilter](https://github.com/Bubblessss/spring-boot-demo/tree/master/spring-boot-bloomfilter)：测试海量数据内存紧张情况下黑名单过滤,垃圾邮件判别
 
 
