@@ -41,7 +41,7 @@
 
 [√spring-boot-elasticsearch](https://github.com/Bubblessss/spring-boot-demo/tree/master/spring-boot-elasticsearch)：整合搜索引擎ES,实现全文模糊分词检索,单/多字段分词模糊检索,聚合操作,高亮字段，ElasticSearchTemplate和ElasticSearchRepository的使用
 
-×spring-boot-docker：第一个docker容器的springboot应用
+[√spring-boot-docker](https://github.com/Bubblessss/spring-boot-demo/tree/master/spring-boot-docker)：第一个docker容器的springboot应用,使用idea的docker插件搭配dockerfile构建，更简单方便，没用maven构建
 
 [√spring-boot-jpa](https://github.com/Bubblessss/spring-boot-demo/tree/master/spring-boot-jpa)：整合新型orm框架jpa
 
