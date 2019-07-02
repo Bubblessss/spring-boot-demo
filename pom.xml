@@ -35,5 +35,6 @@
         <module>spring-boot-jwt</module>
         <module>spring-boot-shiro</module>
         <module>spring-boot-bloomfilter</module>
+        <module>spring-boot-docker</module>
     </modules>
 </project>
