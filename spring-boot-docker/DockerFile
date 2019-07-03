@@ -1,8 +1,6 @@
 
 FROM java:8
 
-VOLUME /opt
-
 ADD target/*.jar spring-boot-docker-0.0.1.jar
 
 EXPOSE 8080
