@@ -53,7 +53,7 @@
 
 [√spring-boot-mongodb](https://github.com/Bubblessss/spring-boot-demo/tree/master/spring-boot-mongodb)：整合主流Nosql框架mongodb,记录系统访问/响应日志
 
-[√spring-boot-mail](https://github.com/Bubblessss/spring-boot-demo/tree/master/spring-boot-mail)：使用springmail快速发邮件
+[√spring-boot-mail](https://github.com/Bubblessss/spring-boot-demo/tree/master/spring-boot-mail)：使用springmail快速发邮件,文本邮件，附件邮件，html邮件，html内联图片邮件
 
 [√spring-boot-thymeleaf](https://github.com/Bubblessss/spring-boot-demo/tree/master/spring-boot-thymeleaf)：整合官网推荐主流模版引擎thymeleaf
 
