@@ -37,7 +37,7 @@
 
 [√spring-boot-activemq](https://github.com/Bubblessss/spring-boot-demo/tree/master/spring-boot-activemq)：整合activemq，使用连接池，同时支持2种模式[topic-消息群通知、queue-p2p通知]、delay(延时队列)、双向队列、手动ack模型
 
-×spring-boot-rabbitmq：整合rabbitmq，测试各个交换机和延时队列
+[√spring-boot-rabbitmq](https://github.com/Bubblessss/spring-boot-demo/tree/master/spring-boot-rabbitmq)：整合rabbitmq，测试Fanout、Direct、Topic交换机、Alternate备份交换机，基于TTL+DLX实现的延时队列和基于rabbitmq_delayed_message_exchange插件实现的延时队列
 
 [√spring-boot-elasticsearch](https://github.com/Bubblessss/spring-boot-demo/tree/master/spring-boot-elasticsearch)：整合搜索引擎ES,实现全文模糊分词检索,单/多字段分词模糊检索,聚合操作,高亮字段，ElasticSearchTemplate和ElasticSearchRepository的使用
 
