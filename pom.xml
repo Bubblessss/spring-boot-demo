@@ -36,5 +36,6 @@
         <module>spring-boot-shiro</module>
         <module>spring-boot-bloomfilter</module>
         <module>spring-boot-docker</module>
+        <module>spring-boot-rabbitmq</module>
     </modules>
 </project>
