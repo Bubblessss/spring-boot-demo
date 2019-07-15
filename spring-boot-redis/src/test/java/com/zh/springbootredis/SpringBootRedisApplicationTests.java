@@ -117,8 +117,10 @@ public class SpringBootRedisApplicationTests {
     @Test
     public void hashTest() {
         this.redisTemplate.opsForHash().put("hash-user","移动",new User(10086,"移动"));
+        this.redisTemplate.opsForHash().put("hash-user","电信",new User(10000,"电信"));
         User user = (User) this.redisTemplate.opsForHash().get("hash-user","移动");
         log.info("==============================hash-user姓名:{}===============================",user.getName());
+        this.redisTemplate.opsForHash().delete("hash-user","电信");
     }
 
     /**
