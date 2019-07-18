@@ -6,6 +6,7 @@
 
     <groupId>com.zh</groupId>
     <artifactId>spring-boot-demos</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
 
     <modules>
@@ -37,5 +38,6 @@
         <module>spring-boot-bloomfilter</module>
         <module>spring-boot-docker</module>
         <module>spring-boot-rabbitmq</module>
+        <module>spring-boot-design-pattern</module>
     </modules>
 </project>
